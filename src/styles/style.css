@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Alata&family=Coming+Soon&family=Love+Ya+Like+A+Sister&display=swap');
+
 *,
 *::after,
 *::before {
@@ -7,20 +9,107 @@
 }
 
 :root {
-    --primary-dark: #8294C4;
-    --secondary-dark: #ACB1D6;
-    --primary-light: #DBDFEA;
-    --secondary-light: #FFEAD2;
+    --primary-dark: #64868E;
+    --secondary-dark: #98B4A6;
+    --primary-light: #F3FBF1;
+    --secondary-light: #D1E4D1;
 }
 
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+}
+
+main {
+    display: flex;
+    height: 80vh;
+}
 
 header {
     display: flex;
-    font-size: 30px;
+    justify-content: flex-start;
+    align-items: center;
     background-color: var(--primary-dark);
+    height: 15vh;
+    border-bottom: 4px solid var(--secondary-dark);
+    user-select: none;
 }
 
-.fa-thin {
-    font-size: 20px;
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary-dark);
+    height: 5vh;
+}
+
+.nav {
+    background-color: var(--secondary-light);
+    width: 20%;
+    padding: 1em;
+}
+
+.main {
+    background-color: var(--primary-light);
+    width: 80%;
+    align-items: stretch;
+}
+
+footer {
+    color: var(--primary-light);
+}
+
+.fa-github {
+    color: var(--primary-light);
+    transition: transform 0.3s ease-in-out;
+}
+
+.fa-github:hover {
+    transform: rotate(360deg) scale(1.2);
+}
+
+.logo {
+    font-family: 'Love Ya Like A Sister', cursive;
+    color: var(--primary-light);
+    font-size: 3.5em;
+}
+
+h2 {
+    font-family: 'Alata', sans-serif;
+    color: var(--primary-dark);
+    font-size: 1.75em;
+    border-bottom: 3px double var(--primary-dark);
+    user-select: none;
+}
+
+.inbox {
+    padding: 1em 0;
+}
+
+ div > p {
+    font-family: 'Alata', sans-serif;
+    font-size: 1.5em;
+    padding: 4px;
+    color: #333333;
+    display: flex;
+    align-items: center;
+    cursor: grab;
+    user-select: none;
+}
+
+div > p:hover {
+    background-color: var(--primary-light);
+    border-radius: 6px;
+}
+
+img {
+    margin-right: 15px;
     height: 30px;
 }
