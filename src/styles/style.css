@@ -16,7 +16,7 @@
 }
 
 html {
-    position: relative;
+    /* position: relative; */
     min-height: 100%;
     min-width: 400px;
 }
@@ -26,11 +26,13 @@ body {
     flex-direction: column;
     justify-content: space-between;
     min-height: 100vh;
+    gap: 0px 0px;
 }
 
 main {
     display: flex;
-    height: 80vh;
+    min-height: 100%;
+    flex: 1 1 auto;
 }
 
 header {
@@ -41,6 +43,15 @@ header {
     height: 15vh;
     border-bottom: 4px solid var(--secondary-dark);
     user-select: none;
+    padding: 8px;
+}
+
+h2 {
+    font-family: 'Alata', sans-serif;
+    color: var(--primary-dark);
+    font-size: 1.75em;
+    border-bottom: 3px double var(--primary-dark);
+    user-select: none;
 }
 
 footer {
@@ -49,6 +60,35 @@ footer {
     align-items: center;
     background-color: var(--primary-dark);
     height: 5vh;
+    color: var(--primary-light);
+    font-family: 'Alata', sans-serif;
+    font-size: 1.3em;
+    gap: 0.4em;
+    padding: 1em;
+    user-select: none;
+}
+
+div>p,
+.add {
+    font-family: 'Alata', sans-serif;
+    font-size: 1.5em;
+    padding: 4px;
+    color: #333333;
+    display: flex;
+    align-items: center;
+    cursor: grab;
+    user-select: none;
+}
+
+div>p:hover,
+.add:hover {
+    background-color: var(--primary-light);
+    border-radius: 6px;
+}
+
+img {
+    margin-right: 15px;
+    height: 30px;
 }
 
 .nav {
@@ -60,12 +100,14 @@ footer {
 .main {
     background-color: var(--primary-light);
     width: 80%;
-    align-items: stretch;
     padding: 1em;
 }
 
-footer {
-    color: var(--primary-light);
+.add {
+    border: none;
+    background-color: var(--secondary-light);
+    width: 100%;
+    margin-top: 1em;
 }
 
 .fa-github {
@@ -83,53 +125,18 @@ footer {
     font-size: 3.5em;
 }
 
-h2 {
-    font-family: 'Alata', sans-serif;
-    color: var(--primary-dark);
-    font-size: 1.75em;
-    border-bottom: 3px double var(--primary-dark);
-    user-select: none;
-}
-
 .inbox {
     padding: 1em 0;
 }
-
-div>p {
-    font-family: 'Alata', sans-serif;
-    font-size: 1.5em;
-    padding: 4px;
-    color: #333333;
-    display: flex;
-    align-items: center;
-    cursor: grab;
-    user-select: none;
-}
-
-div>p:hover {
-    background-color: var(--primary-light);
-    border-radius: 6px;
-}
-
-img {
-    margin-right: 15px;
-    height: 30px;
-}
-
-footer {
-    font-family: 'Alata', sans-serif;
-    font-size: 1.3em;
-    gap: 0.4em;
-    user-select: none;
-}
-
 
 @media (max-width: 600px) {
     main {
         flex-direction: column;
     }
 
-    .nav {
+    .nav,
+    .main {
         width: 100%;
+        flex: 1 1 auto;
     }
 }

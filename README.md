@@ -13,6 +13,6 @@ The project primarily demonstrates use of data structures, as well as use of ext
 
 ## Media & assets credits:
 
-1. Flaticon: https://www.flaticon.com/search?word=todo 
+1. Flaticon (Arkinasi): https://www.flaticon.com/free-icons/to-do
 
-2. Flaticon (juicy_fish): https://www.flaticon.com/free-icon/inbox_9470690?term=inbox&page=1&position=25&origin=search&related_id=9470690 https://www.flaticon.com/free-icon/calendar_9733281?term=today&page=1&position=2&origin=search&related_id=9733281 https://www.flaticon.com/free-icon/star_1550596?term=star&page=1&position=1&origin=search&related_id=1550596 https://www.flaticon.com/free-icon/deadline_1549877?term=calendar&page=1&position=4&origin=search&related_id=1549877
+2. Flaticon (juicy_fish): https://www.flaticon.com/free-icons/inbox https://www.flaticon.com/free-icons/today https://www.flaticon.com/free-icons/star https://www.flaticon.com/free-icons/calendar https://www.flaticon.com/free-icons/plus
