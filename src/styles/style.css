@@ -49,9 +49,10 @@ header {
 h2 {
     font-family: 'Alata', sans-serif;
     color: var(--primary-dark);
-    font-size: 1.75em;
+    font-size: 1.5em;
     border-bottom: 3px double var(--primary-dark);
     user-select: none;
+    padding-bottom: 5px;
 }
 
 footer {
@@ -71,13 +72,14 @@ footer {
 div>p,
 .add {
     font-family: 'Alata', sans-serif;
-    font-size: 1.5em;
+    font-size: 1em;
     padding: 4px;
     color: #333333;
     display: flex;
     align-items: center;
     cursor: grab;
     user-select: none;
+    margin-bottom: 10px;
 }
 
 div>p:hover,
@@ -95,6 +97,10 @@ img {
     background-color: var(--secondary-light);
     width: 350px;
     padding: 1em;
+}
+
+.home {
+    margin-bottom: 15px;
 }
 
 .main {

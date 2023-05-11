@@ -1,5 +1,3 @@
-# todo-list
-
 # ToDo List
 ## Introduction
 
@@ -15,4 +13,4 @@ The project primarily demonstrates use of data structures, as well as use of ext
 
 1. Flaticon (Arkinasi): https://www.flaticon.com/free-icons/to-do
 
-2. Flaticon (juicy_fish): https://www.flaticon.com/free-icons/inbox https://www.flaticon.com/free-icons/today https://www.flaticon.com/free-icons/star https://www.flaticon.com/free-icons/calendar https://www.flaticon.com/free-icons/plus
+2. Flaticon (juicy_fish): https://www.flaticon.com/free-icons/files-and-folders https://www.flaticon.com/free-icons/today https://www.flaticon.com/free-icons/star https://www.flaticon.com/free-icons/calendar https://www.flaticon.com/free-icons/plus
