@@ -168,11 +168,15 @@ img {
     border: 1px solid #cf5656;
 }
 
+.project-name {
+    margin-top: 10px;
+}
+
 /* MAIN CONTENT */
 
 .main {
     background-color: var(--primary-light);
-    width: 80%;
+    width: 100%;
     padding: 1em;
 }
 
