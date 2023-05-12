@@ -13,4 +13,4 @@ The project primarily demonstrates use of data structures, as well as use of ext
 
 1. Flaticon (Arkinasi): https://www.flaticon.com/free-icons/to-do
 
-2. Flaticon (juicy_fish): https://www.flaticon.com/free-icons/files-and-folders https://www.flaticon.com/free-icons/today https://www.flaticon.com/free-icons/star https://www.flaticon.com/free-icons/calendar https://www.flaticon.com/free-icons/plus https://www.flaticon.com/free-icons/document
+2. Flaticon (juicy_fish): https://www.flaticon.com/free-icons/files-and-folders https://www.flaticon.com/free-icons/today https://www.flaticon.com/free-icons/star https://www.flaticon.com/free-icons/calendar https://www.flaticon.com/free-icons/plus https://www.flaticon.com/free-icons/document https://www.flaticon.com/free-icons/cancel
