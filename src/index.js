@@ -1,3 +1,4 @@
 import './styles/style.css';
+import UI from './modules/DisplayController';
 
-console.log('I work!');
+document.addEventListener('DOMContentLoaded', UI.loadHomepage);
