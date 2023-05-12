@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../src/assets/icon.png">
     <script src="https://kit.fontawesome.com/f5ed9082ee.js" crossorigin="anonymous" rel="stylesheet"></script>
     <script src="./main.js" defer></script>
     <title>ToDo List</title>
@@ -50,8 +51,19 @@
             <div class="projects">
                 <h2>Projects</h2>
                 <div class="projects-list">
+                    sample project
                 </div>
-                <button class="add">
+                
+
+                <div class="add-project-popup" id="add-project-popup">
+                    <input type="text" class="input-add-project" placeholder="Cool project name">
+                    <div class="popup-project-buttons">
+                        <button class="popup-button" id="popup-add-button">Add</button>
+                        <button class="popup-button" id="popup-cancel-button">Cancel</button>
+                    </div>
+                </div>
+
+                <button class="add" id="add-project-button">
                     <img src="../src/assets/add.png" alt="plus icon">
                     Add Project
                 </button>
