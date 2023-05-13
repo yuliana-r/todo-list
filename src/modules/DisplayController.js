@@ -31,8 +31,8 @@ export default class UI {
     addButton.addEventListener('click', () => {
       const projectName = document.getElementById('project-name');
       const project = new Project(projectName.value);
-      Storage.addProject(project);
       console.log(project);
+      Storage.addProject(project);
       console.log(Storage.getToDoList());
       addProjectPopup.classList.remove('active');
     });

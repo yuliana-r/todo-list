@@ -13,18 +13,6 @@ export default class Storage {
       JSON.parse(localStorage.getItem('toDoList')),
     );
 
-    toDoList.setProjects(
-      toDoList
-        .getProjects()
-        .map((project) => Object.assign(new Project(), project)),
-    );
-
-    toDoList
-      .getProjects()
-      .forEach((project) => project.setTasks(
-        project.getTasks().map((task) => Object.assign(new Task(), task)),
-      ));
-
     return toDoList;
   }
 
