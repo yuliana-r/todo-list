@@ -19,16 +19,20 @@ export default class ToDoList {
   }
 
   addProject(newProject) {
-    if (this.projects.find((project) => project.getName === newProject.name)) return;
+    if (this.projects.find((project) => project.name === newProject.name)) return;
     this.projects.push(newProject);
   }
 
   getProject(projectName) {
-    return this.projects.find((project) => project.getName() === projectName);
+    return this.projects.find((project) => project.name === projectName);
+  }
+
+  contains(projectName) {
+    return this.projects.some((project) => project.name === projectName);
   }
 
   deleteProject(projectName) {
-    const projectToDelete = this.projects.find((project) => project.getName() === projectName);
-    this.projects = this.projects.splice(this.projects.indexOf(projectToDelete), 1);
+    const projectToDelete = this.projects.find((project) => project.name === projectName);
+    this.projects.splice(this.projects.indexOf(projectToDelete), 1);
   }
 }

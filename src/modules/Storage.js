@@ -3,7 +3,7 @@ import Project from './Project';
 import ToDoList from './ToDoList';
 
 export default class Storage {
-  static saveTodoList(data) {
+  static saveToDoList(data) {
     localStorage.setItem('toDoList', JSON.stringify(data));
   }
 
@@ -19,6 +19,12 @@ export default class Storage {
   static addProject(project) {
     const toDoList = Storage.getToDoList();
     toDoList.addProject(project);
-    Storage.saveTodoList(toDoList);
+    Storage.saveToDoList(toDoList);
+  }
+
+  static deleteProject(project) {
+    const toDoList = Storage.getToDoList();
+    toDoList.deleteProject(project);
+    Storage.saveToDoList(toDoList);
   }
 }
