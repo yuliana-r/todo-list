@@ -51,6 +51,26 @@ export default class UI {
     });
   }
 
+  static handleAddTaskPopup() {
+    const addTaskButton = document.getElementById('add-task-button');
+    const addButton = document.getElementById('popup-add-task-button');
+    const cancelTaskButton = document.getElementById('popup-cancel-task-button');
+    const addTaskPopup = document.getElementById('add-task-popup');
+    const taskName = document.getElementById('task-name');
+
+    addTaskButton.addEventListener('click', () => {
+      taskName.value = '';
+      addTaskPopup.classList.add('active');
+    });
+
+    // add task to project
+
+    cancelTaskButton.addEventListener('click', () => {
+      addTaskPopup.classList.remove('active');
+      taskName.value = '';
+    });
+  }
+
   static displayProjects() {
     const projectsList = document.getElementById('projects-list');
     projectsList.textContent = '';
@@ -87,6 +107,7 @@ export default class UI {
   static displayProjectPreview() {
     const projectButtons = document.querySelectorAll('.project-name');
     const projectPreview = document.getElementById('project-preview');
+
     projectButtons.forEach((projectButton) => {
       projectButton.addEventListener('click', () => {
         projectButtons.forEach((projectButton) => projectButton.classList.remove('active-project'));
@@ -98,13 +119,22 @@ export default class UI {
         } else {
           projectPreview.innerHTML = `
           <h3>${projectName}</h3>
-          <button class="add-task">
+          <div class="add-task-popup" id="add-task-popup">
+                    <input id="task-name" type="text" class="input-add-task" placeholder="Cool task name"
+                    maxlength="25">
+                    <div class="popup-project-buttons">
+                        <button class="popup-button" id="popup-add-task-button">Add</button>
+                        <button class="popup-button" id="popup-cancel-task-button">Cancel</button>
+                    </div>
+                </div>
+          <button class="add-task" id="add-task-button">
               <img src="../src/assets/add-task.png" alt="plus icon">
                   Add Task
           </button>`;
         }
 
         projectButton.classList.add('active-project');
+        UI.handleAddTaskPopup();
       });
     });
   }

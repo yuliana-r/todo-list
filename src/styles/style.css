@@ -111,18 +111,21 @@ img {
     height: 30px;
 }
 
-.add-project {
+.add-project,
+.add-task {
     border: none;
     background-color: var(--secondary-light);
     width: 100%;
     margin-top: 1em;
 }
 
-.add-project-popup {
+.add-project-popup,
+.add-task-popup {
     display: none;
 }
 
-.input-add-project {
+.input-add-project,
+.input-add-task {
     width: 100%;
     height: 2em;
     margin-top: 1em;
@@ -133,7 +136,8 @@ img {
     outline: none;
 }
 
-.add-project-popup.active {
+.add-project-popup.active,
+.add-task-popup.active {
     display: block;
     user-select: none;
 }
@@ -163,12 +167,14 @@ img {
     opacity: 0.85;
 }
 
-#popup-add-button {
+#popup-add-button,
+#popup-add-task-button {
     background-color: #92ba69;
     border: 1px solid #82a65e;
 }
 
-#popup-cancel-button {
+#popup-cancel-button,
+#popup-cancel-task-button {
     background-color: #e65f5f;
     border: 1px solid #cf5656;
 }
@@ -231,6 +237,9 @@ h3 {
     border-radius: 6px;
 }
 
+#add-task-popup {
+    width: 400px;
+}
 
 /* FOOTER */
 
@@ -269,5 +278,9 @@ footer {
     .main {
         width: 100%;
         flex: 1 1 auto;
+    }
+
+    #add-task-popup {
+        width: 75%;
     }
 }
