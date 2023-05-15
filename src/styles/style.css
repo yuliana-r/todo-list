@@ -84,35 +84,34 @@ h2 {
     padding: 1em 0;
 }
 
+
 div>p,
-.add {
+.add-project,
+.add-task {
     font-family: 'Alata', sans-serif;
     font-size: 1em;
-    padding: 4px;
+    padding: 6px;
     color: #333333;
     display: flex;
     align-items: center;
     cursor: grab;
     user-select: none;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
 }
 
-div>p:hover,
-.add:hover {
+/* div>p:hover,
+.add-project:hover,
+.project-name.active-project {
     background-color: var(--primary-light);
     border-radius: 6px;
-}
-
-div>p:hover .delete-button {
-    display: block;
-}
+} */
 
 img {
     margin-right: 15px;
     height: 30px;
 }
 
-.add {
+.add-project {
     border: none;
     background-color: var(--secondary-light);
     width: 100%;
@@ -136,6 +135,7 @@ img {
 
 .add-project-popup.active {
     display: block;
+    user-select: none;
 }
 
 .popup-project-buttons {
@@ -156,6 +156,7 @@ img {
     font-weight: bold;
     font-size: 0.8em;
     letter-spacing: 2px;
+    user-select: none;
 }
 
 .popup-button:hover {
@@ -172,23 +173,62 @@ img {
     border: 1px solid #cf5656;
 }
 
-.project-name {
+.project-name-div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-top: 10px;
+    user-select: none;
+    cursor: grab;
+}
+
+.project-name {
+    width: 100%;
+}
+
+.project-name-div:hover .delete-button {
+    display: block;
+}
+
+.project-name-div:hover,
+.add-project:hover,
+.project-name.active-project {
+    background-color: var(--primary-light);
+    border-radius: 6px;
 }
 
 .delete-button {
     display: none;
-    margin-left: auto;
-    margin-right: 5px;
+    margin-right: 10px;
     height: 15px;
 }
 
 /* MAIN CONTENT */
 
+h3 {
+    font-family: 'Alata', sans-serif;
+    color: var(--primary-dark);
+    font-size: 1.75em;
+    user-select: none;
+    padding-bottom: 5px;
+}
+
 .main {
     background-color: var(--primary-light);
     width: 100%;
-    padding: 1em;
+    padding: 2em;
+}
+
+.add-task {
+    border: none;
+    background-color: var(--primary-light);
+    width: 180px;
+    margin-top: 1em;
+}
+
+.add-task:hover {
+    background-color: #e6ebe4;
+    border-radius: 6px;
 }
 
 

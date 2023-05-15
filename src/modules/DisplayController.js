@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import Task from './Task';
 import Project from './Project';
 import ToDoList from './ToDoList';
@@ -11,7 +12,6 @@ export default class UI {
 
   static initButtons() {
     UI.handleAddProjectPopup();
-    UI.handleProjectClick();
   }
 
   static handleAddProjectPopup() {
@@ -29,15 +29,13 @@ export default class UI {
     addButton.addEventListener('click', () => {
       const project = new Project(projectName.value);
 
-      console.log(project);
-
       if (project.name === '') {
         alert('Project name can\'t be empty');
         return;
       }
 
-      if (Storage.getToDoList().contains(project)) {
-        project.value = '';
+      if (Storage.getToDoList().contains(project.name)) {
+        projectName.value = '';
         alert('Project names must be different');
         return;
       }
@@ -59,31 +57,62 @@ export default class UI {
     const toDoList = Storage.getToDoList().getProjects();
     for (let i = 4; i < toDoList.length; i++) {
       const displayedProject = document.createElement('div');
-      displayedProject.classList.add('project-name');
-      displayedProject.innerHTML = `<p>
+      displayedProject.classList.add('project-name-div');
+      displayedProject.innerHTML = `<p class="project-name">
       <img src="../src/assets/project.png" alt="project icon">
-      ${toDoList[i].name}
-      <img src="../src/assets/delete.png" class="delete-button" alt="delete icon"></p>`;
+      ${toDoList[i].name}</p>
+      <img src="../src/assets/delete.png" class="delete-button" alt="delete icon">`;
       projectsList.append(displayedProject);
     }
 
     UI.handleProjectClick();
+    UI.displayProjectPreview();
   }
 
   static handleProjectClick() {
-    // display tasks here
-
     const deleteProjectButtons = document.querySelectorAll('.delete-button');
 
     deleteProjectButtons.forEach((button) => {
       button.addEventListener('click', () => {
-        const projectName = button.parentNode.childNodes[2].nodeValue.trim();
-        console.log(projectName);
-        console.log(Storage.getToDoList());
+        const projectName = button.previousElementSibling.textContent.trim();
+        if (button.previousElementSibling.classList.contains('active-project')) {
+          UI.clearProjectPreview();
+        }
         Storage.deleteProject(projectName);
-        console.log(Storage.getToDoList());
         UI.displayProjects();
       });
     });
   }
+
+  static displayProjectPreview() {
+    const projectButtons = document.querySelectorAll('.project-name');
+    const projectPreview = document.getElementById('project-preview');
+    projectButtons.forEach((projectButton) => {
+      projectButton.addEventListener('click', () => {
+        projectButtons.forEach((projectButton) => projectButton.classList.remove('active-project'));
+        const projectName = projectButton.textContent.trim();
+
+        if (projectName === 'All Tasks' || projectName === 'Today'
+        || projectName === 'This Week' || projectName === 'Important') {
+          projectPreview.innerHTML = `<h3>${projectName}</h3>`;
+        } else {
+          projectPreview.innerHTML = `
+          <h3>${projectName}</h3>
+          <button class="add-task">
+              <img src="../src/assets/add-task.png" alt="plus icon">
+                  Add Task
+          </button>`;
+        }
+
+        projectButton.classList.add('active-project');
+      });
+    });
+  }
+
+  static clearProjectPreview() {
+    const projectPreview = document.getElementById('project-preview');
+    projectPreview.textContent = '';
+  }
+
+  // display tasks method
 }
