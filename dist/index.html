@@ -51,32 +51,34 @@
             <div class="projects">
                 <h2>Projects</h2>
                 <div class="projects-list" id="projects-list">
-                    <!-- <div class="project-name">
-                        <p>
+                    <!-- <div class="project-name-div">
+                        <p class="project-name">
                             <img src="../src/assets/project.png" alt="project icon">
                             Project 1
                             <img src="../src/assets/delete.png" class="delete-button" alt="delete icon">
                         </p>
                     </div> -->
                 </div>
-
-
                 <div class="add-project-popup" id="add-project-popup">
-                    <input id="project-name" type="text" class="input-add-project" placeholder="Cool project name">
+                    <input id="project-name" type="text" class="input-add-project" placeholder="Cool project name"
+                    maxlength="14">
                     <div class="popup-project-buttons">
                         <button class="popup-button" id="popup-add-button">Add</button>
                         <button class="popup-button" id="popup-cancel-button">Cancel</button>
                     </div>
                 </div>
 
-                <button class="add" id="add-project-button">
+                <button class="add-project" id="add-project-button">
                     <img src="../src/assets/add.png" alt="plus icon">
                     Add Project
                 </button>
             </div>
         </div>
         <div class="main">
-            I am the main content <br>
+            <div id="project-preview">
+
+            </div>
+            <!-- I am the main content <br> -->
         </div>
     </main>
 
