@@ -2,7 +2,7 @@ export default class Task {
   constructor(name, importance, dueDate = 'No Date') {
     this.name = name;
     this.dueDate = dueDate;
-    this.importance = importance;
+    this.importance = false;
   }
 
   setName(name) {

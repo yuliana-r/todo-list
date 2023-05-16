@@ -79,9 +79,10 @@ export default class UI {
         return;
       }
 
-      console.log(Storage.getToDoList());
       Storage.addTask(project, task);
-      console.log(Storage.getToDoList());
+      Storage.addTask('All', task);
+      console.log(Storage.getToDoList().getProject('All'));
+      console.log(Storage.getToDoList().getProjects());
       UI.displayTasks(project);
       addTaskPopup.classList.remove('active');
     });
@@ -125,6 +126,30 @@ export default class UI {
     });
   }
 
+  static handleTaskClick() {
+    const taskName = document.querySelectorAll('.task-preview');
+    const taskDate = document.querySelectorAll('.task-date');
+    const deleteTaskButton = document.querySelectorAll('.delete-task');
+
+    taskName.forEach((taskNameButton) => {
+      taskNameButton.addEventListener('click', () => {
+        // option to edit task name
+      });
+    });
+
+    taskDate.forEach((taskDateButton) => {
+      taskDateButton.addEventListener('click', () => {
+        // option to add or change  task date
+      });
+    });
+
+    deleteTaskButton.forEach((deleteTaskButton) => {
+      deleteTaskButton.addEventListener('click', () => {
+        // option to delete task from current project
+      });
+    });
+  }
+
   static displayProjectPreview() {
     const projectButtons = document.querySelectorAll('.project-name');
     const projectPreview = document.getElementById('project-preview');
@@ -134,9 +159,11 @@ export default class UI {
         projectButtons.forEach((projectButton) => projectButton.classList.remove('active-project'));
         const projectName = projectButton.textContent.trim();
 
-        if (projectName === 'All Tasks' || projectName === 'Today'
+        if (projectName === 'All' || projectName === 'Today'
         || projectName === 'This Week' || projectName === 'Important') {
-          projectPreview.innerHTML = `<h3>${projectName}</h3>`;
+          projectPreview.innerHTML = `<h3>${projectName}</h3>
+          <div class="tasks-list" id="tasks-list"></div>`;
+          UI.displayTasks(projectName);
         } else {
           projectPreview.innerHTML = `
           <h3>${projectName}</h3>
@@ -153,11 +180,11 @@ export default class UI {
               <img src="../src/assets/add-task.png" alt="plus icon">
                   Add Task
           </button>`;
+          UI.displayTasks(projectName);
         }
 
         projectButton.classList.add('active-project');
         UI.handleAddTaskPopup();
-        UI.displayTasks(projectName);
       });
     });
   }
@@ -165,23 +192,30 @@ export default class UI {
   static displayTasks(projectName) {
     const tasksPreview = document.getElementById('tasks-list');
     tasksPreview.textContent = '';
-    const currentProject = Storage.getToDoList().getProject(projectName);
-
     console.log(projectName);
-    console.log(currentProject.getTasks()[0].name);
+
+    const currentProject = Storage.getToDoList().getProject(projectName);
+    console.log(currentProject);
 
     for (let i = 0; i < currentProject.getTasks().length; i++) {
       const task = document.createElement('div');
       task.classList.add('tasks-list-preview');
-      task.innerHTML = `<p class="task-preview">${currentProject.getTasks()[i].name}</p>
+      task.innerHTML = `
+      <div class="task-left-panel">
+      <img src="../src/assets/circle.png" class="circle-img" alt="circle icon">
+      <p class="task-preview">${currentProject.getTasks()[i].name}</p>
+      </div>
       <div class="task-right-panel">
       <p class="task-date">${currentProject.getTasks()[i].dueDate}</p>
       <img src="../src/assets/delete.png" class="delete-task" alt="delete icon">
       </div>
       `;
-      console.log(currentProject.getTasks()[i]);
       tasksPreview.append(task);
     }
+  }
+
+  static displayAllTasks() {
+
   }
 
   static clearProjectPreview() {

@@ -1,90 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="../src/assets/icon.png">
-    <script src="https://kit.fontawesome.com/f5ed9082ee.js" crossorigin="anonymous" rel="stylesheet"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="../src/assets/icon.png" />
+    <script
+      src="https://kit.fontawesome.com/f5ed9082ee.js"
+      crossorigin="anonymous"
+      rel="stylesheet"
+    ></script>
     <script src="./main.js" defer></script>
     <title>ToDo List</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <header>
-        <p class="logo"> 🗒️ToDo List</p>
+      <p class="logo">🗒️ToDo List</p>
     </header>
 
     <main>
-        <div class="nav">
-            <div class="home">
-                <h2>Home</h2>
-                <div class="inbox">
-                    <div id="allTasks" class="project-name-div">
-                        <p class="project-name">
-                            <img src="../src/assets/all-tasks.png" alt="all tasks icon">
-                            All Tasks
-                        </p>
-                    </div>
-                    <div id="today" class="project-name-div">
-                        <p class="project-name">
-                            <img src="../src/assets/today.png" alt="today icon">
-                            Today
-                        </p>
-                    </div>
-                    <div id="thisWeek" class="project-name-div">
-                        <p class="project-name">
-                            <img src="../src/assets/this-week.png" alt="this week icon">
-                            This Week
-                        </p>
-                    </div>
-                    <div id="important" class="project-name-div">
+      <div class="nav">
+        <div class="home">
+          <h2>Home</h2>
+          <div class="inbox">
+            <div id="allTasks" class="project-name-div">
+              <p class="project-name">
+                <img src="../src/assets/all-tasks.png" alt="all tasks icon" />
+                All
+              </p>
+            </div>
+            <div id="today" class="project-name-div">
+              <p class="project-name">
+                <img src="../src/assets/today.png" alt="today icon" />
+                Today
+              </p>
+            </div>
+            <div id="thisWeek" class="project-name-div">
+              <p class="project-name">
+                <img src="../src/assets/this-week.png" alt="this week icon" />
+                This Week
+              </p>
+            </div>
+            <!-- <div id="important" class="project-name-div">
                         <p class="project-name">
                             <img src="../src/assets/important.png" alt="important icon">
                             Important
                         </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="projects">
-                <h2>Projects</h2>
-                <div class="projects-list" id="projects-list">
-                    <!-- <div class="project-name-div">
-                        <p class="project-name">
-                            <img src="../src/assets/project.png" alt="project icon">
-                            Project 1
-                            <img src="../src/assets/delete.png" class="delete-button" alt="delete icon">
-                        </p>
                     </div> -->
-                </div>
-                <div class="add-project-popup" id="add-project-popup">
-                    <input id="project-name" type="text" class="input-add-project" placeholder="Cool project name"
-                    maxlength="14">
-                    <div class="popup-project-buttons">
-                        <button class="popup-button" id="popup-add-button">Add</button>
-                        <button class="popup-button" id="popup-cancel-button">Cancel</button>
-                    </div>
-                </div>
+          </div>
+        </div>
 
-                <button class="add-project" id="add-project-button">
-                    <img src="../src/assets/add.png" alt="plus icon">
-                    Add Project
-                </button>
+        <div class="projects">
+          <h2>Projects</h2>
+          <div class="projects-list" id="projects-list"></div>
+          <div class="add-project-popup" id="add-project-popup">
+            <input
+              id="project-name"
+              type="text"
+              class="input-add-project"
+              placeholder="Cool project name"
+              maxlength="14"
+            />
+            <div class="popup-project-buttons">
+              <button class="popup-button" id="popup-add-button">Add</button>
+              <button class="popup-button" id="popup-cancel-button">
+                Cancel
+              </button>
             </div>
+          </div>
+
+          <button class="add-project" id="add-project-button">
+            <img src="../src/assets/add.png" alt="plus icon" />
+            Add Project
+          </button>
         </div>
-        <div class="main">
-            <div id="project-preview">
-            </div>
-        </div>
+      </div>
+      <div class="main">
+        <div id="project-preview"></div>
+      </div>
     </main>
 
     <footer>
-        <a href="https://github.com/yuliana-r/todo-list" target="_blank">
-            <i class="fab fa-github" aria-hidden="true"></i></a>
-        <p>yuliana-r</p>
+      <a href="https://github.com/yuliana-r/todo-list" target="_blank">
+        <i class="fab fa-github" aria-hidden="true"></i
+      ></a>
+      <p>yuliana-r</p>
     </footer>
-</body>
-
+  </body>
 </html>

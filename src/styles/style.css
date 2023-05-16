@@ -241,11 +241,21 @@ h3 {
     width: 400px;
 }
 
+#project-preview {
+    width: 60%;
+    min-width: 500px;
+}
+
 .tasks-list-preview {
     display: flex;
     align-items: center;
     font-size: 1em;
     user-select: none;
+    min-width: 100%;
+}
+
+.tasks-list {
+    margin-top: 20px;
 }
 
 .delete-task {
@@ -268,10 +278,27 @@ h3 {
     user-select: none;
 }
 
+.task-left-panel {
+    display: flex;
+    align-items: center;
+    margin-right: auto;
+    gap: 0.5em;
+    cursor: grab;
+    user-select: none;
+}
+
 .task-preview,
 .task-right-panel,
 .delete-task {
     text-align: center;
+}
+
+.task-left-panel {
+    word-break: break-all;
+}
+
+.circle-img {
+    margin: 0;
 }
 
 /* FOOTER */
@@ -302,7 +329,7 @@ footer {
 
 /* MEDIA QUERIES */
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
     main {
         flex-direction: column;
     }
@@ -315,5 +342,9 @@ footer {
 
     #add-task-popup {
         width: 75%;
+    }
+
+    #project-preview {
+        width: 400px;
     }
 }
