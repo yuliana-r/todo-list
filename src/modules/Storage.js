@@ -3,12 +3,12 @@ import Project from './Project';
 import ToDoList from './ToDoList';
 
 export default class Storage {
+  // Retrieving a serialized ToDoList object from the browser's localStorage and converting
+  // it back into a fully functional ToDoList object with all its associated projects and tasks
+
   static saveToDoList(data) {
     localStorage.setItem('toDoList', JSON.stringify(data));
   }
-
-  // Retrieving a serialized ToDoList object from the browser's localStorage and converting
-  // it back into a fully functional ToDoList object with all its associated projects and tasks
 
   static getToDoList() {
     const toDoList = Object.assign(

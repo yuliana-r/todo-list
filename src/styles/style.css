@@ -241,6 +241,39 @@ h3 {
     width: 400px;
 }
 
+.tasks-list-preview {
+    display: flex;
+    align-items: center;
+    font-size: 1em;
+    user-select: none;
+}
+
+.delete-task {
+    height: 15px;
+    width: 15px;
+    margin: 0 10px;
+    align-self: center;
+    cursor: grab;
+}
+
+.delete-task:hover {
+    opacity: 0.8;
+}
+
+.task-right-panel {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    gap: 1em;
+    user-select: none;
+}
+
+.task-preview,
+.task-right-panel,
+.delete-task {
+    text-align: center;
+}
+
 /* FOOTER */
 
 footer {

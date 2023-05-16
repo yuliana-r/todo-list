@@ -171,8 +171,15 @@ export default class UI {
     console.log(currentProject.getTasks()[0].name);
 
     for (let i = 0; i < currentProject.getTasks().length; i++) {
-      const task = document.createElement('p');
-      task.innerHTML = `${currentProject.getTasks()[i].name}`;
+      const task = document.createElement('div');
+      task.classList.add('tasks-list-preview');
+      task.innerHTML = `<p class="task-preview">${currentProject.getTasks()[i].name}</p>
+      <div class="task-right-panel">
+      <p class="task-date">${currentProject.getTasks()[i].dueDate}</p>
+      <img src="../src/assets/delete.png" class="delete-task" alt="delete icon">
+      </div>
+      `;
+      console.log(currentProject.getTasks()[i]);
       tasksPreview.append(task);
     }
   }
