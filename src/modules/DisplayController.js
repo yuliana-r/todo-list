@@ -80,9 +80,7 @@ export default class UI {
       }
 
       Storage.addTask(project, task);
-      Storage.addTask('All', task);
-      console.log(Storage.getToDoList().getProject('All'));
-      console.log(Storage.getToDoList().getProjects());
+      // Storage.addTask('All', task);
       UI.displayTasks(project);
       addTaskPopup.classList.remove('active');
     });
@@ -145,7 +143,8 @@ export default class UI {
 
     deleteTaskButton.forEach((deleteTaskButton) => {
       deleteTaskButton.addEventListener('click', () => {
-        // option to delete task from current project
+        const parent = deleteTaskButton.parentElement.parentElement;
+        const taskToDelete = parent.querySelector('.task-preview').textContent;
       });
     });
   }
@@ -159,11 +158,13 @@ export default class UI {
         projectButtons.forEach((projectButton) => projectButton.classList.remove('active-project'));
         const projectName = projectButton.textContent.trim();
 
-        if (projectName === 'All' || projectName === 'Today'
-        || projectName === 'This Week' || projectName === 'Important') {
+        // if (projectName === 'All' || projectName === 'Today'
+        // || projectName === 'This Week' || projectName === 'Important')
+
+        if (projectName === 'All') {
           projectPreview.innerHTML = `<h3>${projectName}</h3>
           <div class="tasks-list" id="tasks-list"></div>`;
-          UI.displayTasks(projectName);
+          UI.displayAllTasks();
         } else {
           projectPreview.innerHTML = `
           <h3>${projectName}</h3>
@@ -192,10 +193,8 @@ export default class UI {
   static displayTasks(projectName) {
     const tasksPreview = document.getElementById('tasks-list');
     tasksPreview.textContent = '';
-    console.log(projectName);
 
     const currentProject = Storage.getToDoList().getProject(projectName);
-    console.log(currentProject);
 
     for (let i = 0; i < currentProject.getTasks().length; i++) {
       const task = document.createElement('div');
@@ -212,10 +211,41 @@ export default class UI {
       `;
       tasksPreview.append(task);
     }
+    UI.handleTaskClick();
   }
 
   static displayAllTasks() {
+    const tasksPreview = document.getElementById('tasks-list');
+    tasksPreview.textContent = '';
 
+    const projects = Storage.getToDoList().getProjects();
+
+    const allTasks = [];
+    projects.forEach((project) => project.tasks.forEach((task) => {
+      allTasks.push({
+        task: task.name,
+        project: project.name,
+        date: task.dueDate,
+      });
+    }));
+
+    console.log(allTasks);
+
+    for (let i = 0; i < allTasks.length; i++) {
+      const task = document.createElement('div');
+      task.classList.add('tasks-list-preview');
+      task.innerHTML = `
+      <div class="task-left-panel">
+      <img src="../src/assets/circle.png" class="circle-img" alt="circle icon">
+      <p class="task-preview">${allTasks[i].task} (${allTasks[i].project})</p>
+      </div>
+      <div class="task-right-panel">
+      <p class="task-date">${allTasks[i].date}</p>
+      <img src="../src/assets/delete.png" class="delete-task" alt="delete icon">
+      </div>
+      `;
+      tasksPreview.append(task);
+    }
   }
 
   static clearProjectPreview() {
