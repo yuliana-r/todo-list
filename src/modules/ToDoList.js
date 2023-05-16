@@ -19,16 +19,16 @@ export default class ToDoList {
   }
 
   addProject(newProject) {
-    if (this.projects.find((project) => project.name === newProject.name)) return;
+    if (this.projects.find((project) => project.getName() === newProject.name)) return;
     this.projects.push(newProject);
   }
 
   getProject(projectName) {
-    return this.projects.find((project) => project.name === projectName);
+    return this.projects.find((project) => project.getName() === projectName);
   }
 
   contains(projectName) {
-    return this.projects.some((project) => project.name === projectName);
+    return this.projects.some((project) => project.getName() === projectName);
   }
 
   deleteProject(projectName) {

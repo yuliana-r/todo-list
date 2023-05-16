@@ -7,11 +7,26 @@ export default class Storage {
     localStorage.setItem('toDoList', JSON.stringify(data));
   }
 
+  // Retrieving a serialized ToDoList object from the browser's localStorage and converting
+  // it back into a fully functional ToDoList object with all its associated projects and tasks
+
   static getToDoList() {
     const toDoList = Object.assign(
       new ToDoList(),
       JSON.parse(localStorage.getItem('toDoList')),
     );
+
+    toDoList.setProjects(
+      toDoList
+        .getProjects()
+        .map((project) => Object.assign(new Project(), project)),
+    );
+
+    toDoList
+      .getProjects()
+      .forEach((project) => project.setTasks(
+        project.getTasks().map((task) => Object.assign(new Task(), task)),
+      ));
 
     return toDoList;
   }
@@ -25,6 +40,12 @@ export default class Storage {
   static deleteProject(project) {
     const toDoList = Storage.getToDoList();
     toDoList.deleteProject(project);
+    Storage.saveToDoList(toDoList);
+  }
+
+  static addTask(project, task) {
+    const toDoList = Storage.getToDoList();
+    toDoList.getProject(project).addTask(task);
     Storage.saveToDoList(toDoList);
   }
 }

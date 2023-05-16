@@ -8,6 +8,7 @@ export default class UI {
   static loadHomepage() {
     UI.initButtons();
     UI.displayProjects();
+    UI.displayTasks();
   }
 
   static initButtons() {
@@ -63,7 +64,27 @@ export default class UI {
       addTaskPopup.classList.add('active');
     });
 
-    // add task to project
+    addButton.addEventListener('click', () => {
+      const project = document.querySelector('#project-preview h3').textContent;
+      const task = new Task(taskName.value);
+
+      if (task.name === '') {
+        alert('Task name can\'t be empty');
+        return;
+      }
+
+      if (Storage.getToDoList().getProject(project).contains(task.name)) {
+        taskName.value = '';
+        alert('Task names must be different');
+        return;
+      }
+
+      console.log(Storage.getToDoList());
+      Storage.addTask(project, task);
+      console.log(Storage.getToDoList());
+      UI.displayTasks(project);
+      addTaskPopup.classList.remove('active');
+    });
 
     cancelTaskButton.addEventListener('click', () => {
       addTaskPopup.classList.remove('active');
@@ -119,6 +140,7 @@ export default class UI {
         } else {
           projectPreview.innerHTML = `
           <h3>${projectName}</h3>
+          <div class="tasks-list" id="tasks-list"></div>
           <div class="add-task-popup" id="add-task-popup">
                     <input id="task-name" type="text" class="input-add-task" placeholder="Cool task name"
                     maxlength="25">
@@ -135,14 +157,28 @@ export default class UI {
 
         projectButton.classList.add('active-project');
         UI.handleAddTaskPopup();
+        UI.displayTasks(projectName);
       });
     });
+  }
+
+  static displayTasks(projectName) {
+    const tasksPreview = document.getElementById('tasks-list');
+    tasksPreview.textContent = '';
+    const currentProject = Storage.getToDoList().getProject(projectName);
+
+    console.log(projectName);
+    console.log(currentProject.getTasks()[0].name);
+
+    for (let i = 0; i < currentProject.getTasks().length; i++) {
+      const task = document.createElement('p');
+      task.innerHTML = `${currentProject.getTasks()[i].name}`;
+      tasksPreview.append(task);
+    }
   }
 
   static clearProjectPreview() {
     const projectPreview = document.getElementById('project-preview');
     projectPreview.textContent = '';
   }
-
-  // display tasks method
 }
