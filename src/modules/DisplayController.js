@@ -165,6 +165,7 @@ export default class UI {
           projectPreview.innerHTML = `<h3>${projectName}</h3>
           <div class="tasks-list" id="tasks-list"></div>`;
           UI.displayAllTasks();
+          // add 2 more ifs for Today and This Week filters
         } else {
           projectPreview.innerHTML = `
           <h3>${projectName}</h3>
@@ -201,7 +202,7 @@ export default class UI {
       task.classList.add('tasks-list-preview');
       task.innerHTML = `
       <div class="task-left-panel">
-      <img src="../src/assets/circle.png" class="circle-img" alt="circle icon">
+      <img src="../src/assets/pin.png" class="circle-img" alt="circle icon">
       <p class="task-preview">${currentProject.getTasks()[i].name}</p>
       </div>
       <div class="task-right-panel">
@@ -236,7 +237,7 @@ export default class UI {
       task.classList.add('tasks-list-preview');
       task.innerHTML = `
       <div class="task-left-panel">
-      <img src="../src/assets/circle.png" class="circle-img" alt="circle icon">
+      <img src="../src/assets/pin.png" class="circle-img" alt="circle icon">
       <p class="task-preview">${allTasks[i].task} (${allTasks[i].project})</p>
       </div>
       <div class="task-right-panel">

@@ -16,3 +16,7 @@ The project primarily demonstrates use of modules, classes, local storage, as we
 2. Flaticon (juicy_fish): https://www.flaticon.com/free-icons/files-and-folders https://www.flaticon.com/free-icons/today https://www.flaticon.com/free-icons/star https://www.flaticon.com/free-icons/calendar https://www.flaticon.com/free-icons/plus https://www.flaticon.com/free-icons/document https://www.flaticon.com/free-icons/paper
 
 3. Flaticon (Pixel perfect): https://www.flaticon.com/free-icons/close
+
+4. Flaticon (Iconnut): https://www.flaticon.com/free-icons/remember
+
+5: Flaticon (AbtoCreative): https://www.flaticon.com/free-icons/ui
