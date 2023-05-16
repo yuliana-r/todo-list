@@ -95,7 +95,7 @@ export default class UI {
     const projectsList = document.getElementById('projects-list');
     projectsList.textContent = '';
     const toDoList = Storage.getToDoList().getProjects();
-    for (let i = 4; i < toDoList.length; i++) {
+    for (let i = 0; i < toDoList.length; i++) {
       const displayedProject = document.createElement('div');
       displayedProject.classList.add('project-name-div');
       displayedProject.innerHTML = `<p class="project-name">
