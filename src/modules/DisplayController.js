@@ -143,8 +143,16 @@ export default class UI {
 
     deleteTaskButton.forEach((deleteTaskButton) => {
       deleteTaskButton.addEventListener('click', () => {
+        const project = document.querySelector('#project-preview h3').textContent;
         const parent = deleteTaskButton.parentElement.parentElement;
         const taskToDelete = parent.querySelector('.task-preview').textContent;
+
+        if (project === 'All' || project === 'Today' || project === 'This Week') {
+
+        } else {
+          Storage.deleteTask(project, taskToDelete);
+          UI.displayTasks(project);
+        }
       });
     });
   }
@@ -230,15 +238,14 @@ export default class UI {
       });
     }));
 
-    console.log(allTasks);
-
     for (let i = 0; i < allTasks.length; i++) {
       const task = document.createElement('div');
       task.classList.add('tasks-list-preview');
       task.innerHTML = `
       <div class="task-left-panel">
       <img src="../src/assets/pin.png" class="circle-img" alt="circle icon">
-      <p class="task-preview">${allTasks[i].task} (${allTasks[i].project})</p>
+      <p class="task-preview">${allTasks[i].task} 
+      <p class="left-panel-project-name">[${allTasks[i].project}]</p></p>
       </div>
       <div class="task-right-panel">
       <p class="task-date">${allTasks[i].date}</p>
@@ -247,6 +254,14 @@ export default class UI {
       `;
       tasksPreview.append(task);
     }
+  }
+
+  static displayTodayTasks() {
+
+  }
+
+  static displayThisWeekTasks() {
+
   }
 
   static clearProjectPreview() {
