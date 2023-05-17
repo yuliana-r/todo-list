@@ -59,36 +59,42 @@ export default class UI {
     const addTaskPopup = document.getElementById('add-task-popup');
     const taskName = document.getElementById('task-name');
 
-    addTaskButton.addEventListener('click', () => {
-      taskName.value = '';
-      addTaskPopup.classList.add('active');
-    });
-
-    addButton.addEventListener('click', () => {
-      const project = document.querySelector('#project-preview h3').textContent;
-      const task = new Task(taskName.value);
-
-      if (task.name === '') {
-        alert('Task name can\'t be empty');
-        return;
-      }
-
-      if (Storage.getToDoList().getProject(project).contains(task.name)) {
+    if (addTaskButton) {
+      addTaskButton.addEventListener('click', () => {
         taskName.value = '';
-        alert('Task names must be different');
-        return;
-      }
+        addTaskPopup.classList.add('active');
+      });
+    }
 
-      Storage.addTask(project, task);
-      // Storage.addTask('All', task);
-      UI.displayTasks(project);
-      addTaskPopup.classList.remove('active');
-    });
+    if (addButton) {
+      addButton.addEventListener('click', () => {
+        const project = document.querySelector('#project-preview h3').textContent;
+        const task = new Task(taskName.value);
 
-    cancelTaskButton.addEventListener('click', () => {
-      addTaskPopup.classList.remove('active');
-      taskName.value = '';
-    });
+        if (task.name === '') {
+          alert('Task name can\'t be empty');
+          return;
+        }
+
+        if (Storage.getToDoList().getProject(project).contains(task.name)) {
+          taskName.value = '';
+          alert('Task names must be different');
+          return;
+        }
+
+        Storage.addTask(project, task);
+        // Storage.addTask('All', task);
+        UI.displayTasks(project);
+        addTaskPopup.classList.remove('active');
+      });
+    }
+
+    if (cancelTaskButton) {
+      cancelTaskButton.addEventListener('click', () => {
+        addTaskPopup.classList.remove('active');
+        taskName.value = '';
+      });
+    }
   }
 
   static displayProjects() {
@@ -147,8 +153,11 @@ export default class UI {
         const parent = deleteTaskButton.parentElement.parentElement;
         const taskToDelete = parent.querySelector('.task-preview').textContent;
 
-        if (project === 'All' || project === 'Today' || project === 'This Week') {
-
+        if (project === 'All') {
+          const linkedProject = deleteTaskButton.closest('.tasks-list-preview')
+            .querySelector('.left-panel-project-name').textContent.slice(1, -1).trim();
+          Storage.deleteTask(linkedProject, taskToDelete.trim());
+          UI.displayAllTasks();
         } else {
           Storage.deleteTask(project, taskToDelete);
           UI.displayTasks(project);
@@ -201,7 +210,9 @@ export default class UI {
 
   static displayTasks(projectName) {
     const tasksPreview = document.getElementById('tasks-list');
-    tasksPreview.textContent = '';
+    if (tasksPreview) {
+      tasksPreview.textContent = '';
+    }
 
     const currentProject = Storage.getToDoList().getProject(projectName);
 
@@ -254,6 +265,7 @@ export default class UI {
       `;
       tasksPreview.append(task);
     }
+    UI.handleTaskClick();
   }
 
   static displayTodayTasks() {
