@@ -16,7 +16,6 @@
 }
 
 html {
-    /* position: relative; */
     min-height: 100%;
     min-width: 400px;
 }
@@ -28,7 +27,6 @@ body {
     min-height: 100vh;
     gap: 0px 0px;
 }
-
 
 /* HEADER */
 
@@ -49,7 +47,6 @@ header {
     font-size: 3.5em;
 }
 
-
 /* MAIN */
 
 main {
@@ -57,7 +54,6 @@ main {
     min-height: 100%;
     flex: 1 1 auto;
 }
-
 
 /* NAVIGATION */
 
@@ -84,8 +80,7 @@ h2 {
     padding: 1em 0;
 }
 
-
-div>p,
+div > p,
 .add-project,
 .add-task {
     font-family: 'Alata', sans-serif;
@@ -96,15 +91,7 @@ div>p,
     align-items: center;
     cursor: grab;
     user-select: none;
-    /* margin-bottom: 10px; */
 }
-
-/* div>p:hover,
-.add-project:hover,
-.project-name.active-project {
-    background-color: var(--primary-light);
-    border-radius: 6px;
-} */
 
 img {
     margin-right: 15px;
@@ -270,27 +257,23 @@ h3 {
     opacity: 0.8;
 }
 
-.task-right-panel {
-    display: flex;
-    align-items: center;
-    margin-left: auto;
-    gap: 1em;
-    user-select: none;
-}
-
+.task-right-panel,
+.task-left-panel,
+.task-preview,
 .task-left-panel {
     display: flex;
     align-items: center;
+}
+
+.task-right-panel {
+    margin-left: auto;
+    gap: 1em;
+}
+
+.task-left-panel {
     margin-right: auto;
     gap: 0.5em;
     cursor: grab;
-    user-select: none;
-}
-
-.task-preview,
-.task-right-panel,
-.delete-task {
-    text-align: center;
 }
 
 .task-left-panel {
@@ -299,6 +282,18 @@ h3 {
 
 .circle-img {
     margin: 0;
+}
+
+.input-due-date {
+    display: none;
+}
+
+.input-due-date.active {
+    display: block;
+}
+
+.task-date.inactive {
+    display: none;
 }
 
 /* FOOTER */
@@ -325,7 +320,6 @@ footer {
 .fa-github:hover {
     transform: rotate(360deg) scale(1.2);
 }
-
 
 /* MEDIA QUERIES */
 

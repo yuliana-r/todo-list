@@ -1,4 +1,5 @@
 /* eslint-disable no-alert */
+import { format } from 'date-fns';
 import Task from './Task';
 import Project from './Project';
 import ToDoList from './ToDoList';
@@ -131,25 +132,38 @@ export default class UI {
   }
 
   static handleTaskClick() {
-    const taskName = document.querySelectorAll('.task-preview');
     const taskDate = document.querySelectorAll('.task-date');
     const deleteTaskButton = document.querySelectorAll('.delete-task');
-
-    taskName.forEach((taskNameButton) => {
-      taskNameButton.addEventListener('click', () => {
-        // option to edit task name
-      });
-    });
+    const project = document.querySelector('#project-preview h3').textContent;
+    const dueDateInputs = document.querySelectorAll('.input-due-date');
 
     taskDate.forEach((taskDateButton) => {
       taskDateButton.addEventListener('click', () => {
-        // option to add or change  task date
+        // const parent = taskDateButton.parentElement.parentElement;
+        // const taskName = parent.querySelector('.task-preview').textContent.trim();
+
+        UI.openSetDateInput(taskDateButton);
+
+        // if (project === 'All') {
+        //   const linkedProject = taskDateButton.closest('.tasks-list-preview')
+        //     .querySelector('.left-panel-project-name').textContent.slice(1, -1).trim();
+        // } else {
+        //   // code here
+        // }
+      });
+    });
+
+    dueDateInputs.forEach((dueDateInput) => {
+      dueDateInput.addEventListener('change', () => {
+        UI.setTaskDate(dueDateInput);
+        taskDate.forEach((taskDateButton) => {
+          UI.closeSetDateInputs(taskDateButton);
+        });
       });
     });
 
     deleteTaskButton.forEach((deleteTaskButton) => {
       deleteTaskButton.addEventListener('click', () => {
-        const project = document.querySelector('#project-preview h3').textContent;
         const parent = deleteTaskButton.parentElement.parentElement;
         const taskToDelete = parent.querySelector('.task-preview').textContent;
 
@@ -226,6 +240,7 @@ export default class UI {
       </div>
       <div class="task-right-panel">
       <p class="task-date">${currentProject.getTasks()[i].dueDate}</p>
+      <input type="date" class="input-due-date">
       <img src="../src/assets/delete.png" class="delete-task" alt="delete icon">
       </div>
       `;
@@ -260,12 +275,41 @@ export default class UI {
       </div>
       <div class="task-right-panel">
       <p class="task-date">${allTasks[i].date}</p>
+      <input type="date" class="input-due-date">
       <img src="../src/assets/delete.png" class="delete-task" alt="delete icon">
       </div>
       `;
       tasksPreview.append(task);
     }
     UI.handleTaskClick();
+  }
+
+  static setTaskDate(taskDateButton) {
+    const taskButton = taskDateButton.parentNode.parentNode;
+    const taskName = taskButton.children[0].children[1].textContent.trim();
+    const dueDateInput = document.querySelector('.input-due-date');
+    const newDueDate = format(new Date(dueDateInput.value), 'dd-MM-yyyy');
+    let projectName = document.querySelector('h3').textContent;
+
+    if (projectName === 'All' || projectName === 'Today' || projectName === 'This Week') {
+      projectName = taskButton.children[0].children[2].textContent.slice(1, -1);
+    }
+
+    Storage.setTaskDate(projectName, taskName, newDueDate);
+  }
+
+  static openSetDateInput(taskDateButton) {
+    const dueDateInput = taskDateButton.nextElementSibling;
+
+    taskDateButton.classList.add('inactive');
+    dueDateInput.classList.add('active');
+  }
+
+  static closeSetDateInputs(taskDateButton) {
+    const dueDateInput = taskDateButton.nextElementSibling;
+
+    taskDateButton.classList.remove('inactive');
+    dueDateInput.classList.remove('active');
   }
 
   static displayTodayTasks() {

@@ -49,6 +49,12 @@ export default class Storage {
     Storage.saveToDoList(toDoList);
   }
 
+  static setTaskDate(project, task, date) {
+    const toDoList = Storage.getToDoList();
+    toDoList.getProject(project).getTask(task).setDate(date);
+    Storage.saveToDoList(toDoList);
+  }
+
   static deleteTask(project, task) {
     const toDoList = Storage.getToDoList();
     toDoList.getProject(project).deleteTask(task);
