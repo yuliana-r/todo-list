@@ -7,7 +7,7 @@ The project primarily demonstrates use of modules, classes, local storage, as we
 
 ## Preview
 
-[![To Do List](./dist/demo.png)](https://yuliana-r.github.io/todo-list/)
+[![To Do List](./src/assets/demo.png)](https://yuliana-r.github.io/todo-list/)
 
 ## Media & assets credits:
 
