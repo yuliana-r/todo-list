@@ -1,5 +1,5 @@
 /* eslint-disable no-alert */
-import { format } from 'date-fns';
+import { format, isToday, isThisWeek } from 'date-fns';
 import Task from './Task';
 import Project from './Project';
 import ToDoList from './ToDoList';
@@ -7,9 +7,9 @@ import Storage from './Storage';
 
 export default class UI {
   static loadHomepage() {
+    UI.initializeHomepage();
     UI.initButtons();
     UI.displayProjects();
-    UI.displayTasks();
   }
 
   static initButtons() {
@@ -179,14 +179,18 @@ export default class UI {
         projectButtons.forEach((projectButton) => projectButton.classList.remove('active-project'));
         const projectName = projectButton.textContent.trim();
 
-        // if (projectName === 'All' || projectName === 'Today'
-        // || projectName === 'This Week' || projectName === 'Important')
-
         if (projectName === 'All') {
           projectPreview.innerHTML = `<h3>${projectName}</h3>
           <div class="tasks-list" id="tasks-list"></div>`;
           UI.displayAllTasks();
-          // add 2 more ifs for Today and This Week filters
+        } else if (projectName === 'Today') {
+          projectPreview.innerHTML = `<h3>${projectName}</h3>
+          <div class="tasks-list" id="tasks-list"></div>`;
+          UI.displayTodayTasks();
+        } else if (projectName === 'This Week') {
+          projectPreview.innerHTML = `<h3>${projectName}</h3>
+          <div class="tasks-list" id="tasks-list"></div>`;
+          UI.displayThisWeekTasks();
         } else {
           projectPreview.innerHTML = `
           <h3>${projectName}</h3>
@@ -278,26 +282,16 @@ export default class UI {
     const taskButton = taskDateButton.parentNode.parentNode;
     const taskName = taskButton.querySelector('.task-preview').textContent.trim();
     const dueDateInput = taskButton.querySelector('.input-due-date');
-    const newDueDate = format(new Date(dueDateInput.value), 'dd-MM-yyyy');
+    const newDueDate = format(new Date(dueDateInput.value), 'dd MMM yyyy');
     const projectName = document.querySelector('#project-preview h3').textContent;
 
     if (projectName === 'All' || projectName === 'Today' || projectName === 'This Week') {
       const linkedProject = taskButton.querySelector('.left-panel-project-name').textContent.slice(1, -1);
       Storage.setTaskDate(linkedProject, taskName, newDueDate);
       UI.displayAllTasks();
-      console.log(linkedProject);
-      console.log(taskName);
-      console.log(newDueDate);
-      // console.log(newDueDate);
     } else {
       Storage.setTaskDate(projectName, taskName, newDueDate);
       UI.displayTasks(projectName);
-      console.log(projectName);
-      console.log(taskName);
-      console.log(newDueDate);
-      // console.log(newDueDate);
-      // Storage.setTaskDate(projectName, taskName, newDueDate);
-      // UI.displayTasks(projectName);
     }
   }
 
@@ -308,19 +302,96 @@ export default class UI {
     dueDateInput.classList.add('active');
   }
 
-  static closeSetDateInputs(taskDateButton) {
-    const dueDateInput = taskDateButton.nextElementSibling;
+  // static closeSetDateInputs(taskDateButton) {
+  //   const dueDateInput = taskDateButton.nextElementSibling;
 
-    taskDateButton.classList.remove('inactive');
-    dueDateInput.classList.remove('active');
-  }
+  //   taskDateButton.classList.remove('inactive');
+  //   dueDateInput.classList.remove('active');
+  // }
 
   static displayTodayTasks() {
+    const tasksPreview = document.getElementById('tasks-list');
+    tasksPreview.textContent = '';
 
+    const projects = Storage.getToDoList().getProjects();
+
+    const allTasks = [];
+    projects.forEach((project) => project.tasks.forEach((task) => {
+      const taskDueDate = new Date(task.dueDate);
+
+      if (isToday(taskDueDate)) {
+        allTasks.push({
+          task: task.name,
+          project: project.name,
+          date: task.dueDate,
+        });
+      }
+    }));
+
+    for (let i = 0; i < allTasks.length; i++) {
+      const task = document.createElement('div');
+      task.classList.add('tasks-list-preview');
+      task.innerHTML = `
+      <div class="task-left-panel">
+      <img src="../src/assets/pin.png" class="circle-img" alt="circle icon">
+      <p class="task-preview">${allTasks[i].task} 
+      <p class="left-panel-project-name">[${allTasks[i].project}]</p></p>
+      </div>
+      <div class="task-right-panel">
+      <p class="task-date">${allTasks[i].date}</p>
+      <input type="date" class="input-due-date">
+      <img src="../src/assets/delete.png" class="delete-task" alt="delete icon">
+      </div>
+      `;
+      tasksPreview.append(task);
+    }
+    UI.handleTaskClick();
   }
 
   static displayThisWeekTasks() {
+    const tasksPreview = document.getElementById('tasks-list');
+    tasksPreview.textContent = '';
 
+    const projects = Storage.getToDoList().getProjects();
+
+    const allTasks = [];
+    projects.forEach((project) => project.tasks.forEach((task) => {
+      const taskDueDate = new Date(task.dueDate);
+
+      if (isThisWeek(taskDueDate, { weekStartsOn: 1 })) {
+        allTasks.push({
+          task: task.name,
+          project: project.name,
+          date: task.dueDate,
+        });
+      }
+    }));
+
+    for (let i = 0; i < allTasks.length; i++) {
+      const task = document.createElement('div');
+      task.classList.add('tasks-list-preview');
+      task.innerHTML = `
+      <div class="task-left-panel">
+      <img src="../src/assets/pin.png" class="circle-img" alt="circle icon">
+      <p class="task-preview">${allTasks[i].task} 
+      <p class="left-panel-project-name">[${allTasks[i].project}]</p></p>
+      </div>
+      <div class="task-right-panel">
+      <p class="task-date">${allTasks[i].date}</p>
+      <input type="date" class="input-due-date">
+      <img src="../src/assets/delete.png" class="delete-task" alt="delete icon">
+      </div>
+      `;
+      tasksPreview.append(task);
+    }
+    UI.handleTaskClick();
+  }
+
+  static initializeHomepage() {
+    document.getElementById('allTasks').children[0].classList.add('active-project');
+    document.getElementById('project-preview').innerHTML = `<h3>All</h3>
+    <div class="tasks-list" id="tasks-list"></div>`;
+    UI.displayAllTasks();
   }
 
   static clearProjectPreview() {

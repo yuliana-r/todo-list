@@ -263,6 +263,7 @@ h3 {
 .task-left-panel {
     display: flex;
     align-items: center;
+    cursor: alias;
 }
 
 .task-right-panel {
@@ -273,11 +274,12 @@ h3 {
 .task-left-panel {
     margin-right: auto;
     gap: 0.5em;
-    cursor: grab;
+    word-break: break-all;
 }
 
-.task-left-panel {
-    word-break: break-all;
+.left-panel-project-name {
+    color: var(--primary-dark);
+    cursor: alias;
 }
 
 .circle-img {
