@@ -9,6 +9,7 @@ export default class UI {
     UI.initializeHomepage();
     UI.initButtons();
     UI.displayProjects();
+    console.log(Storage.getToDoList());
   }
 
   static initButtons() {
