@@ -139,26 +139,16 @@ export default class UI {
 
     taskDate.forEach((taskDateButton) => {
       taskDateButton.addEventListener('click', () => {
-        // const parent = taskDateButton.parentElement.parentElement;
-        // const taskName = parent.querySelector('.task-preview').textContent.trim();
-
         UI.openSetDateInput(taskDateButton);
-
-        // if (project === 'All') {
-        //   const linkedProject = taskDateButton.closest('.tasks-list-preview')
-        //     .querySelector('.left-panel-project-name').textContent.slice(1, -1).trim();
-        // } else {
-        //   // code here
-        // }
       });
     });
 
     dueDateInputs.forEach((dueDateInput) => {
       dueDateInput.addEventListener('change', () => {
         UI.setTaskDate(dueDateInput);
-        taskDate.forEach((taskDateButton) => {
-          UI.closeSetDateInputs(taskDateButton);
-        });
+        // taskDate.forEach((taskDateButton) => {
+        //   UI.closeSetDateInputs(taskDateButton);
+        // });
       });
     });
 
@@ -286,16 +276,29 @@ export default class UI {
 
   static setTaskDate(taskDateButton) {
     const taskButton = taskDateButton.parentNode.parentNode;
-    const taskName = taskButton.children[0].children[1].textContent.trim();
-    const dueDateInput = document.querySelector('.input-due-date');
+    const taskName = taskButton.querySelector('.task-preview').textContent.trim();
+    const dueDateInput = taskButton.querySelector('.input-due-date');
     const newDueDate = format(new Date(dueDateInput.value), 'dd-MM-yyyy');
-    let projectName = document.querySelector('h3').textContent;
+    const projectName = document.querySelector('#project-preview h3').textContent;
 
     if (projectName === 'All' || projectName === 'Today' || projectName === 'This Week') {
-      projectName = taskButton.children[0].children[2].textContent.slice(1, -1);
+      const linkedProject = taskButton.querySelector('.left-panel-project-name').textContent.slice(1, -1);
+      Storage.setTaskDate(linkedProject, taskName, newDueDate);
+      UI.displayAllTasks();
+      console.log(linkedProject);
+      console.log(taskName);
+      console.log(newDueDate);
+      // console.log(newDueDate);
+    } else {
+      Storage.setTaskDate(projectName, taskName, newDueDate);
+      UI.displayTasks(projectName);
+      console.log(projectName);
+      console.log(taskName);
+      console.log(newDueDate);
+      // console.log(newDueDate);
+      // Storage.setTaskDate(projectName, taskName, newDueDate);
+      // UI.displayTasks(projectName);
     }
-
-    Storage.setTaskDate(projectName, taskName, newDueDate);
   }
 
   static openSetDateInput(taskDateButton) {
