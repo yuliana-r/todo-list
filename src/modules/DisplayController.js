@@ -2,7 +2,6 @@
 import { format, isToday, isThisWeek } from 'date-fns';
 import Task from './Task';
 import Project from './Project';
-import ToDoList from './ToDoList';
 import Storage from './Storage';
 
 export default class UI {
@@ -53,51 +52,6 @@ export default class UI {
     });
   }
 
-  static handleAddTaskPopup() {
-    const addTaskButton = document.getElementById('add-task-button');
-    const addButton = document.getElementById('popup-add-task-button');
-    const cancelTaskButton = document.getElementById('popup-cancel-task-button');
-    const addTaskPopup = document.getElementById('add-task-popup');
-    const taskName = document.getElementById('task-name');
-
-    if (addTaskButton) {
-      addTaskButton.addEventListener('click', () => {
-        taskName.value = '';
-        addTaskPopup.classList.add('active');
-      });
-    }
-
-    if (addButton) {
-      addButton.addEventListener('click', () => {
-        const project = document.querySelector('#project-preview h3').textContent;
-        const task = new Task(taskName.value);
-
-        if (task.name === '') {
-          alert('Task name can\'t be empty');
-          return;
-        }
-
-        if (Storage.getToDoList().getProject(project).contains(task.name)) {
-          taskName.value = '';
-          alert('Task names must be different');
-          return;
-        }
-
-        Storage.addTask(project, task);
-        // Storage.addTask('All', task);
-        UI.displayTasks(project);
-        addTaskPopup.classList.remove('active');
-      });
-    }
-
-    if (cancelTaskButton) {
-      cancelTaskButton.addEventListener('click', () => {
-        addTaskPopup.classList.remove('active');
-        taskName.value = '';
-      });
-    }
-  }
-
   static displayProjects() {
     const projectsList = document.getElementById('projects-list');
     projectsList.textContent = '';
@@ -131,45 +85,6 @@ export default class UI {
     });
   }
 
-  static handleTaskClick() {
-    const taskDate = document.querySelectorAll('.task-date');
-    const deleteTaskButton = document.querySelectorAll('.delete-task');
-    const project = document.querySelector('#project-preview h3').textContent;
-    const dueDateInputs = document.querySelectorAll('.input-due-date');
-
-    taskDate.forEach((taskDateButton) => {
-      taskDateButton.addEventListener('click', () => {
-        UI.openSetDateInput(taskDateButton);
-      });
-    });
-
-    dueDateInputs.forEach((dueDateInput) => {
-      dueDateInput.addEventListener('change', () => {
-        UI.setTaskDate(dueDateInput);
-        // taskDate.forEach((taskDateButton) => {
-        //   UI.closeSetDateInputs(taskDateButton);
-        // });
-      });
-    });
-
-    deleteTaskButton.forEach((deleteTaskButton) => {
-      deleteTaskButton.addEventListener('click', () => {
-        const parent = deleteTaskButton.parentElement.parentElement;
-        const taskToDelete = parent.querySelector('.task-preview').textContent;
-
-        if (project === 'All') {
-          const linkedProject = deleteTaskButton.closest('.tasks-list-preview')
-            .querySelector('.left-panel-project-name').textContent.slice(1, -1).trim();
-          Storage.deleteTask(linkedProject, taskToDelete.trim());
-          UI.displayRelevantTasks('all');
-        } else {
-          Storage.deleteTask(project, taskToDelete);
-          UI.displayTasks(project);
-        }
-      });
-    });
-  }
-
   static displayProjectPreview() {
     const projectButtons = document.querySelectorAll('.project-name');
     const projectPreview = document.getElementById('project-preview');
@@ -190,7 +105,7 @@ export default class UI {
         } else if (projectName === 'This Week') {
           projectPreview.innerHTML = `<h3>${projectName}</h3>
           <div class="tasks-list" id="tasks-list"></div>`;
-          UI.displayRelevantTasks('thisWeek');
+          UI.displayRelevantTasks('thisweek');
         } else {
           projectPreview.innerHTML = `
           <h3>${projectName}</h3>
@@ -214,6 +129,50 @@ export default class UI {
         UI.handleAddTaskPopup();
       });
     });
+  }
+
+  static handleAddTaskPopup() {
+    const addTaskButton = document.getElementById('add-task-button');
+    const addButton = document.getElementById('popup-add-task-button');
+    const cancelTaskButton = document.getElementById('popup-cancel-task-button');
+    const addTaskPopup = document.getElementById('add-task-popup');
+    const taskName = document.getElementById('task-name');
+
+    if (addTaskButton) {
+      addTaskButton.addEventListener('click', () => {
+        taskName.value = '';
+        addTaskPopup.classList.add('active');
+      });
+    }
+
+    if (addButton) {
+      addButton.addEventListener('click', () => {
+        const project = document.querySelector('#project-preview h3').textContent;
+        const task = new Task(taskName.value);
+
+        if (task.name === '') {
+          alert('Task name can\'t be empty');
+          return;
+        }
+
+        if (Storage.getToDoList().getProject(project).contains(task.name)) {
+          taskName.value = '';
+          alert('Task names must be different');
+          return;
+        }
+
+        Storage.addTask(project, task);
+        UI.displayTasks(project);
+        addTaskPopup.classList.remove('active');
+      });
+    }
+
+    if (cancelTaskButton) {
+      cancelTaskButton.addEventListener('click', () => {
+        addTaskPopup.classList.remove('active');
+        taskName.value = '';
+      });
+    }
   }
 
   static displayTasks(projectName) {
@@ -243,150 +202,6 @@ export default class UI {
     UI.handleTaskClick();
   }
 
-  // static displayAllTasks() {
-  //   const tasksPreview = document.getElementById('tasks-list');
-  //   tasksPreview.textContent = '';
-
-  //   const projects = Storage.getToDoList().getProjects();
-
-  //   const allTasks = [];
-  //   projects.forEach((project) => project.tasks.forEach((task) => {
-  //     allTasks.push({
-  //       task: task.name,
-  //       project: project.name,
-  //       date: task.dueDate,
-  //     });
-  //   }));
-
-  //   for (let i = 0; i < allTasks.length; i++) {
-  //     const task = document.createElement('div');
-  //     task.classList.add('tasks-list-preview');
-  //     task.innerHTML = `
-  //     <div class="task-left-panel">
-  //     <img src="../src/assets/pin.png" class="circle-img" alt="circle icon">
-  //     <p class="task-preview">${allTasks[i].task}
-  //     <p class="left-panel-project-name">[${allTasks[i].project}]</p></p>
-  //     </div>
-  //     <div class="task-right-panel">
-  //     <p class="task-date">${allTasks[i].date}</p>
-  //     <input type="date" class="input-due-date">
-  //     <img src="../src/assets/delete.png" class="delete-task" alt="delete icon">
-  //     </div>
-  //     `;
-  //     tasksPreview.append(task);
-  //   }
-  //   UI.handleTaskClick();
-  // }
-
-  static setTaskDate(taskDateButton) {
-    const taskButton = taskDateButton.parentNode.parentNode;
-    const taskName = taskButton.querySelector('.task-preview').textContent.trim();
-    const dueDateInput = taskButton.querySelector('.input-due-date');
-    const newDueDate = format(new Date(dueDateInput.value), 'dd MMM yyyy');
-    const projectName = document.querySelector('#project-preview h3').textContent;
-
-    if (projectName === 'All' || projectName === 'Today' || projectName === 'This Week') {
-      const linkedProject = taskButton.querySelector('.left-panel-project-name').textContent.slice(1, -1);
-      Storage.setTaskDate(linkedProject, taskName, newDueDate);
-      UI.displayRelevantTasks('all');
-    } else {
-      Storage.setTaskDate(projectName, taskName, newDueDate);
-      UI.displayTasks(projectName);
-    }
-  }
-
-  static openSetDateInput(taskDateButton) {
-    const dueDateInput = taskDateButton.nextElementSibling;
-
-    taskDateButton.classList.add('inactive');
-    dueDateInput.classList.add('active');
-  }
-
-  // static closeSetDateInputs(taskDateButton) {
-  //   const dueDateInput = taskDateButton.nextElementSibling;
-
-  //   taskDateButton.classList.remove('inactive');
-  //   dueDateInput.classList.remove('active');
-  // }
-
-  // static displayTodayTasks() {
-  //   const tasksPreview = document.getElementById('tasks-list');
-  //   tasksPreview.textContent = '';
-
-  //   const projects = Storage.getToDoList().getProjects();
-
-  //   const allTasks = [];
-  //   projects.forEach((project) => project.tasks.forEach((task) => {
-  //     const taskDueDate = new Date(task.dueDate);
-
-  //     if (isToday(taskDueDate)) {
-  //       allTasks.push({
-  //         task: task.name,
-  //         project: project.name,
-  //         date: task.dueDate,
-  //       });
-  //     }
-  //   }));
-
-  //   for (let i = 0; i < allTasks.length; i++) {
-  //     const task = document.createElement('div');
-  //     task.classList.add('tasks-list-preview');
-  //     task.innerHTML = `
-  //     <div class="task-left-panel">
-  //     <img src="../src/assets/pin.png" class="circle-img" alt="circle icon">
-  //     <p class="task-preview">${allTasks[i].task}
-  //     <p class="left-panel-project-name">[${allTasks[i].project}]</p></p>
-  //     </div>
-  //     <div class="task-right-panel">
-  //     <p class="task-date">${allTasks[i].date}</p>
-  //     <input type="date" class="input-due-date">
-  //     <img src="../src/assets/delete.png" class="delete-task" alt="delete icon">
-  //     </div>
-  //     `;
-  //     tasksPreview.append(task);
-  //   }
-  //   UI.handleTaskClick();
-  // }
-
-  // static displayThisWeekTasks() {
-  //   const tasksPreview = document.getElementById('tasks-list');
-  //   tasksPreview.textContent = '';
-
-  //   const projects = Storage.getToDoList().getProjects();
-
-  //   const allTasks = [];
-  //   projects.forEach((project) => project.tasks.forEach((task) => {
-  //     const taskDueDate = new Date(task.dueDate);
-
-  //     if (isThisWeek(taskDueDate, { weekStartsOn: 1 })) {
-  //       allTasks.push({
-  //         task: task.name,
-  //         project: project.name,
-  //         date: task.dueDate,
-  //       });
-  //     }
-  //   }));
-
-  //   for (let i = 0; i < allTasks.length; i++) {
-  //     const task = document.createElement('div');
-  //     task.classList.add('tasks-list-preview');
-  //     task.innerHTML = `
-  //     <div class="task-left-panel">
-  //     <img src="../src/assets/pin.png" class="circle-img" alt="circle icon">
-  //     <p class="task-preview">${allTasks[i].task}
-  //     <p class="left-panel-project-name">[${allTasks[i].project}]</p></p>
-  //     </div>
-  //     <div class="task-right-panel">
-  //     <p class="task-date">${allTasks[i].date}</p>
-  //     <input type="date" class="input-due-date">
-  //     <img src="../src/assets/delete.png" class="delete-task" alt="delete icon">
-  //     </div>
-  //     `;
-  //     tasksPreview.append(task);
-  //   }
-  //   UI.handleTaskClick();
-  // }
-
   static displayRelevantTasks(filter = '') {
     const tasksPreview = document.getElementById('tasks-list');
     tasksPreview.textContent = '';
@@ -394,7 +209,6 @@ export default class UI {
     const projects = Storage.getToDoList().getProjects();
 
     const allTasks = [];
-    const today = new Date();
 
     projects.forEach((project) => {
       project.tasks.forEach((task) => {
@@ -403,7 +217,7 @@ export default class UI {
 
         if (filter === 'today' && isToday(taskDueDate)) {
           shouldPushTask = true;
-        } else if (filter === 'thisWeek' && isThisWeek(taskDueDate, { weekStartsOn: 1 })) {
+        } else if (filter === 'thisweek' && isThisWeek(taskDueDate, { weekStartsOn: 1 })) {
           shouldPushTask = true;
         } else if (!filter || filter === 'all') {
           shouldPushTask = true;
@@ -438,6 +252,67 @@ export default class UI {
     }
 
     UI.handleTaskClick();
+  }
+
+  static handleTaskClick() {
+    const taskDate = document.querySelectorAll('.task-date');
+    const deleteTaskButton = document.querySelectorAll('.delete-task');
+    const project = document.querySelector('#project-preview h3').textContent;
+    const dueDateInputs = document.querySelectorAll('.input-due-date');
+
+    taskDate.forEach((taskDateButton) => {
+      taskDateButton.addEventListener('click', () => {
+        UI.openSetDateInput(taskDateButton);
+      });
+    });
+
+    dueDateInputs.forEach((dueDateInput) => {
+      dueDateInput.addEventListener('change', () => {
+        UI.setTaskDate(dueDateInput);
+      });
+    });
+
+    deleteTaskButton.forEach((deleteTaskButton) => {
+      deleteTaskButton.addEventListener('click', () => {
+        const parent = deleteTaskButton.parentElement.parentElement;
+        const taskToDelete = parent.querySelector('.task-preview').textContent;
+
+        if (project === 'All') {
+          const linkedProject = deleteTaskButton.closest('.tasks-list-preview')
+            .querySelector('.left-panel-project-name').textContent.slice(1, -1).trim();
+          Storage.deleteTask(linkedProject, taskToDelete.trim());
+          UI.displayRelevantTasks('all');
+        } else {
+          Storage.deleteTask(project, taskToDelete);
+          UI.displayTasks(project);
+        }
+      });
+    });
+  }
+
+  static setTaskDate(taskDateButton) {
+    const taskButton = taskDateButton.parentNode.parentNode;
+    const taskName = taskButton.querySelector('.task-preview').textContent.trim();
+    const dueDateInput = taskButton.querySelector('.input-due-date');
+    const newDueDate = format(new Date(dueDateInput.value), 'dd MMM yyyy');
+    const projectName = document.querySelector('#project-preview h3').textContent;
+    let linkedProject;
+
+    if (projectName === 'All' || projectName === 'Today' || projectName === 'This Week') {
+      linkedProject = taskButton.querySelector('.left-panel-project-name').textContent.slice(1, -1);
+      Storage.setTaskDate(linkedProject, taskName, newDueDate);
+      UI.displayRelevantTasks(`${projectName.toLowerCase().replace(/\s/g, '')}`);
+    } else {
+      Storage.setTaskDate(projectName, taskName, newDueDate);
+      UI.displayTasks(projectName);
+    }
+  }
+
+  static openSetDateInput(taskDateButton) {
+    const dueDateInput = taskDateButton.nextElementSibling;
+
+    taskDateButton.classList.add('inactive');
+    dueDateInput.classList.add('active');
   }
 
   static initializeHomepage() {

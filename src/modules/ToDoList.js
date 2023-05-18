@@ -1,13 +1,8 @@
-// import Task from './Task';
 import Project from './Project';
 
 export default class ToDoList {
   constructor() {
     this.projects = [];
-    // this.projects.push(new Project('All'));
-    // this.projects.push(new Project('Today'));
-    // this.projects.push(new Project('This week'));
-    // this.projects.push(new Project('Important'));
   }
 
   setProjects(projects) {
