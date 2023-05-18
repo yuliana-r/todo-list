@@ -6,6 +6,7 @@ import Storage from './Storage';
 import pin from '../assets/pin.png';
 import addtask from '../assets/add-task.png';
 import project from '../assets/project.png';
+import deleteButton from '../assets/delete.png';
 
 export default class UI {
   static loadHomepage() {
@@ -66,7 +67,7 @@ export default class UI {
       displayedProject.innerHTML = `<p class="project-name">
       <img src="${project}" alt="project icon">
       ${toDoList[i].name}</p>
-      <img src="../src/assets/delete.png" class="delete-button" alt="delete icon">`;
+      <img src="${deleteButton}" class="delete-button" alt="delete icon">`;
       projectsList.append(displayedProject);
     }
 
@@ -198,7 +199,7 @@ export default class UI {
       <div class="task-right-panel">
       <p class="task-date">${currentProject.getTasks()[i].dueDate}</p>
       <input type="date" class="input-due-date">
-      <img src="../src/assets/delete.png" class="delete-task" alt="delete icon">
+      <img src="${deleteButton}" class="delete-task" alt="delete icon">
       </div>
       `;
       tasksPreview.append(task);
@@ -249,7 +250,7 @@ export default class UI {
       <div class="task-right-panel">
         <p class="task-date">${allTasks[i].date}</p>
         <input type="date" class="input-due-date">
-        <img src="../src/assets/delete.png" class="delete-task" alt="delete icon">
+        <img src="${deleteButton}" class="delete-task" alt="delete icon">
       </div>
       `;
       tasksPreview.append(task);
