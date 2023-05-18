@@ -3,6 +3,9 @@ import { format, isToday, isThisWeek } from 'date-fns';
 import Task from './Task';
 import Project from './Project';
 import Storage from './Storage';
+import pin from '../assets/pin.png';
+import addtask from '../assets/add-task.png';
+import project from '../assets/project.png';
 
 export default class UI {
   static loadHomepage() {
@@ -61,7 +64,7 @@ export default class UI {
       const displayedProject = document.createElement('div');
       displayedProject.classList.add('project-name-div');
       displayedProject.innerHTML = `<p class="project-name">
-      <img src="../src/assets/project.png" alt="project icon">
+      <img src=${project} alt="project icon">
       ${toDoList[i].name}</p>
       <img src="../src/assets/delete.png" class="delete-button" alt="delete icon">`;
       projectsList.append(displayedProject);
@@ -120,7 +123,7 @@ export default class UI {
                     </div>
                 </div>
           <button class="add-task" id="add-task-button">
-              <img src="../src/assets/add-task.png" alt="plus icon">
+              <img src=${addtask} alt="plus icon">
                   Add Task
           </button>`;
           UI.displayTasks(projectName);
@@ -189,7 +192,7 @@ export default class UI {
       task.classList.add('tasks-list-preview');
       task.innerHTML = `
       <div class="task-left-panel">
-      <img src="../src/assets/pin.png" class="circle-img" alt="circle icon">
+      <img src=${pin} class="circle-img" alt="circle icon">
       <p class="task-preview">${currentProject.getTasks()[i].name}</p>
       </div>
       <div class="task-right-panel">
@@ -239,7 +242,7 @@ export default class UI {
       task.classList.add('tasks-list-preview');
       task.innerHTML = `
       <div class="task-left-panel">
-        <img src="../src/assets/pin.png" class="circle-img" alt="circle icon">
+        <img src=${pin} class="circle-img" alt="circle icon">
         <p class="task-preview">${allTasks[i].task} 
         <p class="left-panel-project-name">[${allTasks[i].project}]</p></p>
       </div>
