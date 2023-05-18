@@ -282,7 +282,7 @@ export default class UI {
         const parent = deleteTaskButton.parentElement.parentElement;
         const taskToDelete = parent.querySelector('.task-preview').textContent;
 
-        if (project === 'All') {
+        if (project === 'All' || project === 'Today' || project === 'This Week') {
           const linkedProject = deleteTaskButton.closest('.tasks-list-preview')
             .querySelector('.left-panel-project-name').textContent.slice(1, -1).trim();
           Storage.deleteTask(linkedProject, taskToDelete.trim());
