@@ -239,6 +239,12 @@ h3 {
     font-size: 1em;
     user-select: none;
     min-width: 100%;
+    padding: 5px;
+}
+
+.tasks-list-preview:hover {
+    background-color: #e6ebe4;
+    border-radius: 5px;
 }
 
 .tasks-list {
@@ -284,6 +290,12 @@ h3 {
 
 .circle-img {
     margin: 0;
+}
+
+input {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #333333;
 }
 
 .input-due-date {
